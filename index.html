@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Iconly: Icon Maker</title>
+	<style>
+		:root {
+			color-scheme: light dark;
+			--bg: #ffffff;
+			--fg: #1a1a1a;
+			--muted: #555;
+			--accent: #5e3fc4;
+			--rule: rgba(0, 0, 0, 0.08);
+		}
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--bg: #0e0e10;
+				--fg: #f2f2f5;
+				--muted: #a0a0a8;
+				--accent: #b288ff;
+				--rule: rgba(255, 255, 255, 0.1);
+			}
+		}
+		* { box-sizing: border-box; }
+		html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+		body {
+			font: 16px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+			padding: 48px 24px;
+		}
+		main {
+			max-width: 680px;
+			margin: 0 auto;
+		}
+		h1 {
+			font-size: 32px;
+			line-height: 1.2;
+			margin: 0 0 8px;
+			font-weight: 700;
+		}
+		h2 {
+			font-size: 22px;
+			margin: 40px 0 12px;
+			padding-top: 24px;
+			border-top: 1px solid var(--rule);
+			font-weight: 600;
+		}
+		p {
+			margin: 0 0 14px;
+		}
+		.tagline {
+			color: var(--muted);
+			font-size: 18px;
+			margin: 0 0 24px;
+		}
+		a {
+			color: var(--accent);
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		footer {
+			margin-top: 48px;
+			padding-top: 24px;
+			border-top: 1px solid var(--rule);
+			color: var(--muted);
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<h1>Iconly: Icon Maker</h1>
+		<p class="tagline">A focused, native macOS app for designing cross-platform app icons. Compose SF Symbols, shapes, and text on a 1024 × 1024 canvas; export Xcode <code>AppIcon.appiconset</code> or Android <code>mipmap-*</code> launcher sets.</p>
+
+		<h2>Support</h2>
+		<p>If you have questions, found a bug, or want to send feedback, please contact:</p>
+		<p><a href="mailto:denys.kotenko@icloud.com">denys.kotenko@icloud.com</a></p>
+
+		<h2>Privacy Policy</h2>
+		<p>Iconly respects your privacy. <strong>It does not collect, transmit, or store any personal data.</strong></p>
+		<p>All your designs and preferences are stored locally on your Mac. There are no user accounts, no telemetry, no third-party analytics, and no advertising SDKs.</p>
+		<p>Iconly uses Apple's StoreKit framework to handle the optional one-time Pro unlock purchase. Apple's <a href="https://www.apple.com/legal/privacy/">privacy policy</a> applies to that transaction. Purchase confirmation flows entirely between you and Apple — no purchase data is shared with the developer beyond what Apple reports through App Store Connect (aggregate sales counts, never tied to your identity).</p>
+		<p>For questions about this policy, contact <a href="mailto:denys.kotenko@icloud.com">denys.kotenko@icloud.com</a>.</p>
+
+		<footer>
+			<p>© 2026 Denys Kotenko</p>
+		</footer>
+	</main>
+</body>
+</html>
