@@ -1,107 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Iconly: Icon Maker</title>
-	<style>
-		:root {
-			color-scheme: light dark;
-			--bg: #ffffff;
-			--fg: #1a1a1a;
-			--muted: #555;
-			--accent: #5e3fc4;
-			--rule: rgba(0, 0, 0, 0.08);
-		}
-		@media (prefers-color-scheme: dark) {
-			:root {
-				--bg: #0e0e10;
-				--fg: #f2f2f5;
-				--muted: #a0a0a8;
-				--accent: #b288ff;
-				--rule: rgba(255, 255, 255, 0.1);
-			}
-		}
-		* { box-sizing: border-box; }
-		html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
-		body {
-			font: 16px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-			padding: 48px 24px;
-		}
-		main {
-			max-width: 680px;
-			margin: 0 auto;
-		}
-		h1 {
-			font-size: 32px;
-			line-height: 1.2;
-			margin: 0 0 8px;
-			font-weight: 700;
-		}
-		h2 {
-			font-size: 22px;
-			margin: 40px 0 12px;
-			padding-top: 24px;
-			border-top: 1px solid var(--rule);
-			font-weight: 600;
-		}
-		p {
-			margin: 0 0 14px;
-		}
-		ul {
-			margin: 0 0 14px;
-			padding-left: 22px;
-		}
-		li {
-			margin: 0 0 6px;
-		}
-		.tagline {
-			color: var(--muted);
-			font-size: 18px;
-			margin: 0 0 24px;
-		}
-		a {
-			color: var(--accent);
-			text-decoration: none;
-		}
-		a:hover {
-			text-decoration: underline;
-		}
-		footer {
-			margin-top: 48px;
-			padding-top: 24px;
-			border-top: 1px solid var(--rule);
-			color: var(--muted);
-			font-size: 14px;
-		}
-	</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iconly — App Icon Maker for Mac</title>
+<meta name="description" content="Iconly is a native Mac app for designing app icons. Compose shapes, text, and your own PNG or SVG artwork on a live 1024 × 1024 canvas, then export an Xcode AppIcon.appiconset or an Android launcher set. One design, every store.">
+<meta property="og:title" content="Iconly: Icon Maker">
+<meta property="og:description" content="Design app icons on a live canvas and export ready-to-ship sets for Xcode and Android. A native Mac app with a one-time unlock.">
+<meta property="og:image" content="https://denyskt.github.io/iconly/assets/icon.jpg">
+<meta name="apple-itunes-app" content="app-id=6768632049">
+<script>
+  if (location.hash === '#privacy') location.replace('privacy.html');
+</script>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; color: #1c1c1e; background: #fff; }
+  a { color: #0a6cff; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+  .hero { background: linear-gradient(180deg, #e3efff 0%, #f3f8ff 70%, #fff 100%); padding: 64px 0 40px; text-align: center; }
+  .hero img.icon { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 8px 24px rgba(10,80,200,.22); }
+  h1 { font-size: 2.2rem; line-height: 1.2; margin: 20px 0 8px; }
+  h1 .accent { color: #0a6cff; }
+  .tagline { font-size: 1.15rem; color: #4b4b50; max-width: 600px; margin: 0 auto 24px; }
+  .badge { display: inline-block; line-height: 0; }
+  .badge img { height: 54px; width: auto; }
+  .requires { color: #6b6b70; font-size: .85rem; margin: 14px 0 0; }
+
+  .shots { display: flex; gap: 16px; overflow-x: auto; padding: 32px 20px; width: fit-content; max-width: 100%; margin: 0 auto;
+           scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
+  .shots img { height: 360px; border-radius: 16px; scroll-snap-align: center; flex: 0 0 auto;
+               box-shadow: 0 6px 20px rgba(10,40,100,.15); }
+  @media (max-width: 640px) { .shots img { height: 240px; } }
+
+  section.features { padding: 24px 0 8px; }
+  h2 { font-size: 1.5rem; text-align: center; margin: 24px 0 4px; }
+  .subhead { text-align: center; color: #6b6b70; margin: 0 0 28px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card { border: 1px solid rgba(128,128,128,.18); border-radius: 14px; padding: 18px 20px; background: rgba(10,108,255,.04); }
+  .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+  .card .emoji { font-size: 1.4rem; display: block; margin-bottom: 8px; }
+  .card p { margin: 0; color: #4b4b50; font-size: .95rem; }
+  code { font-size: .9em; }
+
+  .callout { max-width: 680px; margin: 32px auto 0; border-left: 3px solid #0a6cff; padding: 12px 16px;
+             background: rgba(10,108,255,.07); border-radius: 8px; font-size: .95rem; }
+
+  .cta { text-align: center; padding: 40px 0 56px; }
+
+  section.support { padding: 0 0 40px; text-align: center; }
+  section.support h2 { margin-top: 0; }
+  section.support p { max-width: 560px; margin: 0 auto 8px; color: #4b4b50; }
+
+  footer { border-top: 1px solid rgba(128,128,128,.2); padding: 28px 0 48px; color: #6b6b70; font-size: .9rem; }
+  footer .links { margin-bottom: 8px; }
+  footer .links a { margin-right: 16px; }
+  footer .disclaimer { font-size: .8rem; margin-top: 12px; max-width: 680px; }
+
+  @media (prefers-color-scheme: dark) {
+    body { color: #e6e6ea; background: #14161b; }
+    a { color: #5ea8ff; }
+    .hero { background: linear-gradient(180deg, #101c30 0%, #141a24 70%, #14161b 100%); }
+    .tagline, .card p, section.support p { color: #a6a6ad; }
+    .card { background: rgba(94,168,255,.06); }
+    h1 .accent { color: #5ea8ff; }
+    .requires { color: #a6a6ad; }
+    .callout { border-color: #5ea8ff; background: rgba(94,168,255,.1); }
+  }
+</style>
 </head>
 <body>
-	<main>
-		<h1>Iconly: Icon Maker</h1>
-		<p class="tagline">A focused, native macOS app for designing cross-platform app icons. Compose SF Symbols, shapes, and text on a 1024 × 1024 canvas; export Xcode <code>AppIcon.appiconset</code> or Android <code>mipmap-*</code> launcher sets.</p>
 
-		<h2>Support</h2>
-		<p>If you have questions, found a bug, or want to send feedback, please contact:</p>
-		<p><a href="mailto:denys.kotenko@icloud.com">denys.kotenko@icloud.com</a></p>
+<header class="hero">
+  <div class="wrap">
+    <img class="icon" src="assets/icon.jpg" alt="Iconly app icon" width="96" height="96">
+    <h1>One icon design,<br><span class="accent">every store</span></h1>
+    <p class="tagline">Compose shapes, text, and your own artwork on a live 1024 × 1024 canvas, then export a ready-to-ship <code>AppIcon.appiconset</code> for Xcode or a density-bucket set for Android. A focused, native Mac app — no web app, no cloud round-trip.</p>
+    <a class="badge" href="https://apps.apple.com/app/id6768632049"><img src="assets/appstore-badge.svg" alt="Download Iconly on the Mac App Store" width="162" height="54"></a>
+    <p class="requires">Mac · macOS 26.2 or later · Free to design, one-time Pro unlock to export</p>
+  </div>
+</header>
 
-		<h2>Privacy Policy</h2>
-		<p>Iconly respects your privacy. Your designs, projects, and preferences are stored locally on your Mac. We do not collect personal information such as names, email addresses, or contact details, and we have no user accounts or servers of our own.</p>
-		<p>We use third-party analytics services to understand how the app is used and to diagnose crashes, so we can improve functionality and stability.</p>
-		<p>This app uses <strong>Firebase Analytics</strong> and <strong>Firebase Crashlytics</strong>, which may collect anonymous data such as:</p>
-		<ul>
-			<li>App interactions (e.g. screens viewed, actions taken)</li>
-			<li>Device information (e.g. operating system version, device model)</li>
-			<li>Approximate location (country or region)</li>
-			<li>Crash diagnostics (stack traces, app state at crash time)</li>
-		</ul>
-		<p>This data is anonymous, not linked to your identity, and is used solely for analytics and app improvement. It is not used for advertising or for tracking you across other apps and websites.</p>
-		<p>Iconly uses Apple's StoreKit framework to handle the optional one-time Pro unlock purchase. Apple's <a href="https://www.apple.com/legal/privacy/">privacy policy</a> applies to that transaction. Analytics data may be processed by Google Firebase in accordance with their <a href="https://firebase.google.com/support/privacy">privacy policy</a>.</p>
-		<p>For questions about this policy, contact <a href="mailto:denys.kotenko@icloud.com">denys.kotenko@icloud.com</a>.</p>
+<div class="shots">
+  <img src="assets/shot-1.jpg" alt="Design app icons on a live canvas — nested rounded rectangles with a gradient background in the inspector" loading="lazy">
+  <img src="assets/shot-2.jpg" alt="Compose in layers — a camera icon built from stacked shapes, with scale, rotation, and padding controls" loading="lazy">
+  <img src="assets/shot-3.jpg" alt="Gradients that pop — a two-stop gradient editor with the system color picker open" loading="lazy">
+  <img src="assets/shot-4.jpg" alt="Pixel-perfect control — a text monogram with size, weight, and alignment controls" loading="lazy">
+</div>
 
-		<footer>
-			<p>© 2026 Denys Kotenko</p>
-		</footer>
-	</main>
+<section class="features">
+  <div class="wrap">
+    <h2>What you see is what Xcode compiles</h2>
+    <p class="subhead">A live squircle preview, so the icon on the canvas is the icon on the Home Screen.</p>
+    <div class="grid">
+      <div class="card">
+        <span class="emoji">🎨</span>
+        <h3>Live canvas</h3>
+        <p>Pinch-zoom, the system squircle mask, and every change rendered as you make it — the preview matches what <code>actool</code> will produce.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🧱</span>
+        <h3>Compose in layers</h3>
+        <p>Stack rectangles, circles, capsules, and text. Reorder, lock, hide, and tune each layer's opacity, scale, rotation, alignment, padding, and optical offset.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🖼️</span>
+        <h3>Bring your own artwork</h3>
+        <p>Import PNG or SVG as a layer. SVG stays crisp at every export size, and an optional recolor tints monochrome glyphs to match your palette.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🌈</span>
+        <h3>Gradients and solid fills</h3>
+        <p>A live two-stop gradient editor with angle control, solid fills, and strokes — on the background and on any layer.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">📦</span>
+        <h3>Export for both platforms</h3>
+        <p>An <code>AppIcon.appiconset</code> for iOS and macOS Xcode projects (single-1024 mode for Xcode 14+), or a complete Android <code>mipmap-*</code> launcher set. One design, every size.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">💾</span>
+        <h3>A real Mac document</h3>
+        <p>Every icon is an <code>.iconsproj</code> file you can commit to git, duplicate, and re-export when your branding evolves. Full undo and redo across every property.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Free to design, one unlock to export:</strong> create and edit unlimited icon projects for nothing. Exporting takes a one-time Pro unlock that covers both formats — no subscription, no recurring charges.
+    </div>
+  </div>
+</section>
+
+<div class="cta">
+  <a class="badge" href="https://apps.apple.com/app/id6768632049"><img src="assets/appstore-badge.svg" alt="Download Iconly on the Mac App Store" width="162" height="54"></a>
+</div>
+
+<section class="support" id="support">
+  <div class="wrap">
+    <h2>Support</h2>
+    <p>Questions, a bug, or feedback? Write to <a href="mailto:denys.kotenko@icloud.com">denys.kotenko@icloud.com</a> and you'll get a reply from the person who builds Iconly.</p>
+    <p id="privacy">Iconly keeps your designs on your Mac and has no accounts or servers of its own. Read the <a href="privacy.html">privacy policy</a>.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Service</a>
+      <a href="mailto:denys.kotenko@icloud.com">Support</a>
+    </div>
+    © 2026 Denys Kotenko · Iconly
+    <p class="disclaimer">Apple, App Store, Mac, macOS, and Xcode are trademarks of Apple Inc. Android is a trademark of Google LLC. Iconly is an independent app and is not affiliated with or endorsed by Apple or Google.</p>
+  </div>
+</footer>
+
 </body>
 </html>
