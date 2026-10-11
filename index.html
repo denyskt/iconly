@@ -29,11 +29,33 @@
   .badge img { height: 54px; width: auto; }
   .requires { color: #6b6b70; font-size: .85rem; margin: 14px 0 0; }
 
-  .showcase { max-width: 1000px; margin: -8px auto 0; padding: 0 20px; }
-  .showcase img { display: block; width: 100%; height: auto; border-radius: 14px;
-                  box-shadow: 0 10px 32px rgba(10,40,100,.16); }
-  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-top: 20px; }
-  .gallery img { box-shadow: 0 6px 20px rgba(10,40,100,.12); }
+  .carousel { --slide: min(1180px, calc(100vw - 112px)); margin: 8px 0 0; }
+  .track { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+           padding: 16px calc((100% - var(--slide)) / 2) 24px; -webkit-overflow-scrolling: touch; }
+  .track::-webkit-scrollbar { display: none; }
+  .slide { flex: 0 0 var(--slide); scroll-snap-align: center; background: #dde2ec; border-radius: 28px; overflow: hidden;
+           box-shadow: 0 10px 32px rgba(10,40,100,.14); }
+  .slide img { display: block; width: 100%; height: auto; }
+  .caption { display: flex; align-items: center; gap: 18px; padding: 16px 28px 26px; font-size: 1.05rem; color: #1c1c1e; }
+  .caption .pill { flex: 0 0 auto; background: #fff; color: #1c1c1e; border-radius: 999px; padding: 10px 20px;
+                   text-decoration: none; font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .caption .pill:hover { background: #0a6cff; color: #fff; }
+  .caption p { margin: 0; }
+  .caption strong { margin-right: 6px; }
+  .caption .sep { color: #6b6b70; margin-right: 6px; }
+  .controls { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0 0 8px; }
+  .dots { display: flex; align-items: center; gap: 14px; background: rgba(128,128,128,.12); border-radius: 999px; padding: 0 22px; height: 48px; }
+  .dots button { width: 8px; height: 8px; border-radius: 4px; border: 0; padding: 0; background: #8a8a8e; cursor: pointer; transition: width .25s; }
+  .dots button[aria-current="true"] { width: 44px; background: #3a3a3c; }
+  .play { width: 48px; height: 48px; border-radius: 50%; border: 0; background: rgba(128,128,128,.12); color: #3a3a3c;
+          cursor: pointer; display: grid; place-items: center; }
+  .play svg { width: 18px; height: 18px; fill: currentColor; }
+  @media (max-width: 640px) {
+    .carousel { --slide: calc(100vw - 48px); }
+    .track { gap: 12px; }
+    .slide { border-radius: 18px; }
+    .caption { flex-wrap: wrap; gap: 12px; padding: 12px 18px 18px; font-size: .95rem; }
+  }
 
   section.features { padding: 24px 0 8px; }
   h2 { font-size: 1.5rem; text-align: center; margin: 24px 0 4px; }
@@ -68,6 +90,10 @@
     h1 .accent { color: #5ea8ff; }
     .requires { color: #a6a6ad; }
     .callout { border-color: #5ea8ff; background: rgba(94,168,255,.1); }
+    .dots, .play { background: rgba(255,255,255,.1); }
+    .dots button { background: #8e8e93; }
+    .dots button[aria-current="true"] { background: #e6e6ea; }
+    .play { color: #e6e6ea; }
   }
 </style>
 </head>
@@ -83,13 +109,30 @@
   </div>
 </header>
 
-<div class="showcase">
-  <img src="assets/shot-1.jpg" alt="Design app icons on a live canvas — nested rounded rectangles with a gradient background in the inspector">
-  <div class="gallery">
-    <img src="assets/shot-2.jpg" alt="Compose in layers — a camera icon built from stacked shapes, with scale, rotation, and padding controls" loading="lazy">
-    <img src="assets/shot-3.jpg" alt="Gradients that pop — a two-stop gradient editor with the system color picker open" loading="lazy">
+<section class="carousel" aria-label="Screenshots">
+  <div class="track">
+    <div class="slide">
+      <img src="assets/shot-1.jpg" alt="Design app icons on a live canvas — nested rounded rectangles with a gradient background in the inspector">
+      <div class="caption"><a class="pill" href="https://apps.apple.com/app/id6768632049">Get Iconly</a><p><strong>A live canvas</strong><span class="sep">•</span>Shapes, text, and your own artwork under the system squircle, exactly as Xcode will compile it.</p></div>
+    </div>
+    <div class="slide">
+      <img src="assets/shot-2.jpg" alt="Compose in layers — a camera icon built from stacked shapes, with scale, rotation, and padding controls" loading="lazy">
+      <div class="caption"><a class="pill" href="https://apps.apple.com/app/id6768632049">Get Iconly</a><p><strong>Compose in layers</strong><span class="sep">•</span>Stack shapes, reorder, lock, and hide, with scale, rotation, and padding on each one.</p></div>
+    </div>
+    <div class="slide">
+      <img src="assets/shot-3.jpg" alt="Gradients that pop — a two-stop gradient editor with the system color picker open" loading="lazy">
+      <div class="caption"><a class="pill" href="https://apps.apple.com/app/id6768632049">Get Iconly</a><p><strong>Gradients that pop</strong><span class="sep">•</span>A live two-stop gradient editor on the background or on any layer.</p></div>
+    </div>
+    <div class="slide">
+      <img src="assets/shot-4.jpg" alt="Pixel-perfect control — a text monogram with size, weight, and alignment controls" loading="lazy">
+      <div class="caption"><a class="pill" href="https://apps.apple.com/app/id6768632049">Get Iconly</a><p><strong>Pixel-perfect type</strong><span class="sep">•</span>Size, weight, scale, and alignment on every text layer, with full undo.</p></div>
+    </div>
   </div>
-</div>
+  <div class="controls">
+    <div class="dots" role="tablist"></div>
+    <button class="play" type="button" aria-label="Pause"></button>
+  </div>
+</section>
 
 <section class="features">
   <div class="wrap">
@@ -157,5 +200,57 @@
   </div>
 </footer>
 
+<script>
+(() => {
+  const track = document.querySelector('.track');
+  const slides = Array.from(track.children);
+  const dots = document.querySelector('.dots');
+  const play = document.querySelector('.play');
+  const icons = { play: '<svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5z"/></svg>',
+                  pause: '<svg viewBox="0 0 16 16"><path d="M3 2h3.5v12H3zM9.5 2H13v12H9.5z"/></svg>' };
+  let index = 0, timer = null;
+  let playing = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Screenshot ' + (i + 1));
+    b.addEventListener('click', () => { setPlaying(false); go(i); });
+    dots.append(b);
+  });
+
+  function mark() { Array.from(dots.children).forEach((b, i) => b.setAttribute('aria-current', i === index)); }
+  function go(i) {
+    index = (i + slides.length) % slides.length;
+    const s = slides[index];
+    track.scrollTo({ left: s.offsetLeft - (track.clientWidth - s.offsetWidth) / 2, behavior: 'smooth' });
+    mark();
+  }
+  function setPlaying(on) {
+    playing = on;
+    clearInterval(timer);
+    if (on) timer = setInterval(() => go(index + 1), 6000);
+    play.innerHTML = on ? icons.pause : icons.play;
+    play.setAttribute('aria-label', on ? 'Pause' : 'Play');
+  }
+
+  let scrollTimer;
+  track.addEventListener('scroll', () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const center = track.scrollLeft + track.clientWidth / 2;
+      let best = 0, dist = Infinity;
+      slides.forEach((s, i) => { const d = Math.abs(s.offsetLeft + s.offsetWidth / 2 - center); if (d < dist) { dist = d; best = i; } });
+      index = best; mark();
+    }, 80);
+  }, { passive: true });
+  ['wheel', 'touchstart', 'pointerdown'].forEach(e => track.addEventListener(e, () => setPlaying(false), { passive: true }));
+  play.addEventListener('click', () => setPlaying(!playing));
+  document.addEventListener('visibilitychange', () => { if (document.hidden) clearInterval(timer); else if (playing) setPlaying(true); });
+
+  mark();
+  setPlaying(playing);
+})();
+</script>
 </body>
 </html>
