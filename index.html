@@ -221,10 +221,34 @@
   });
 
   function mark() { Array.from(dots.children).forEach((b, i) => b.setAttribute('aria-current', i === index)); }
+  // Native smooth scrolling is short and, with snap points, uneven across
+  // browsers; drive the scroll ourselves with an ease-in-out curve instead.
+  let anim = null;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function animateTo(target) {
+    cancelAnim();
+    const start = track.scrollLeft, delta = target - start;
+    if (Math.abs(delta) < 1) return;
+    if (reduced) { track.scrollLeft = target; return; }
+    const duration = 800, t0 = performance.now();
+    const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    track.style.scrollSnapType = 'none';
+    const step = now => {
+      const t = Math.min(1, (now - t0) / duration);
+      track.scrollLeft = start + delta * ease(t);
+      if (t < 1) anim = requestAnimationFrame(step);
+      else { anim = null; track.style.scrollSnapType = ''; }
+    };
+    anim = requestAnimationFrame(step);
+  }
+  function cancelAnim() {
+    if (!anim) return;
+    cancelAnimationFrame(anim); anim = null; track.style.scrollSnapType = '';
+  }
   function go(i) {
     index = (i + slides.length) % slides.length;
     const s = slides[index];
-    track.scrollTo({ left: s.offsetLeft - (track.clientWidth - s.offsetWidth) / 2, behavior: 'smooth' });
+    animateTo(s.offsetLeft - (track.clientWidth - s.offsetWidth) / 2);
     mark();
   }
   function setPlaying(on) {
@@ -239,13 +263,14 @@
   track.addEventListener('scroll', () => {
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(() => {
+      if (anim) return;
       const center = track.scrollLeft + track.clientWidth / 2;
       let best = 0, dist = Infinity;
       slides.forEach((s, i) => { const d = Math.abs(s.offsetLeft + s.offsetWidth / 2 - center); if (d < dist) { dist = d; best = i; } });
       index = best; mark();
     }, 80);
   }, { passive: true });
-  ['wheel', 'touchstart', 'pointerdown'].forEach(e => track.addEventListener(e, () => setPlaying(false), { passive: true }));
+  ['wheel', 'touchstart', 'pointerdown'].forEach(e => track.addEventListener(e, () => { cancelAnim(); setPlaying(false); }, { passive: true }));
   play.addEventListener('click', () => setPlaying(!playing));
   document.addEventListener('visibilitychange', () => { if (document.hidden) clearInterval(timer); else if (playing) setPlaying(true); });
 
