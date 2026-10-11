@@ -29,15 +29,15 @@
   .badge img { height: 54px; width: auto; }
   .requires { color: #6b6b70; font-size: .85rem; margin: 14px 0 0; }
 
-  .carousel { --slide: min(1180px, calc(100vw - 112px)); margin: 8px 0 0; }
+  .carousel { --slide: min(900px, calc(100vw - 112px)); margin: 8px 0 0; }
   .track { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-           padding: 16px calc((100% - var(--slide)) / 2) 24px; -webkit-overflow-scrolling: touch; }
+           padding: 12px calc((100% - var(--slide)) / 2) 20px; -webkit-overflow-scrolling: touch; }
   .track::-webkit-scrollbar { display: none; }
-  .slide { flex: 0 0 var(--slide); scroll-snap-align: center; background: #dde2ec; border-radius: 28px; overflow: hidden;
+  .slide { flex: 0 0 var(--slide); scroll-snap-align: center; background: #dde2ec; border-radius: 22px; overflow: hidden;
            box-shadow: 0 10px 32px rgba(10,40,100,.14); }
   .slide img { display: block; width: 100%; height: auto; }
-  .caption { display: flex; align-items: center; gap: 18px; padding: 16px 28px 26px; font-size: 1.05rem; color: #1c1c1e; }
-  .caption .pill { flex: 0 0 auto; background: #fff; color: #1c1c1e; border-radius: 999px; padding: 10px 20px;
+  .caption { display: flex; align-items: center; gap: 16px; padding: 10px 22px 18px; font-size: .95rem; line-height: 1.45; color: #1c1c1e; }
+  .caption .pill { flex: 0 0 auto; background: #fff; color: #1c1c1e; border-radius: 999px; padding: 8px 16px;
                    text-decoration: none; font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
   .caption .pill:hover { background: #0a6cff; color: #fff; }
   .caption p { margin: 0; }
